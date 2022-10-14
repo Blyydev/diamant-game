@@ -1,0 +1,153 @@
+<template>
+	<div class="app_inner spectator" id="game_component">
+		<div id="popup">
+			<transition-group name="popup" tag="div">
+			<div v-for="(pop, index) in popup_list" @click="deletePopup(index)" class="pop_item" :key="(index+'_'+item)">
+				<span v-html="pop"></span>
+			</div>
+			</transition-group>
+		</div>
+
+		<Timer ref="timer" />
+
+		<header id="header_game">
+			<div class="logo">Diamant</div>
+			<div class="round" :class="'step_'+gameRound">
+				<div v-for="index in maxRound"
+					class="step_item"
+					:class="'step_'+index"
+					:data-current="(gameRound >= index ? (gameRound === index ? true : 'done') : false)"
+				><iconCamp/></div>
+			</div>
+		</header>
+
+		<CardsBoard :cardsList="caveCards" :diamonds="diamondsLeft" />
+
+		<div class="bottom_panel">
+			<div class="temp_diamants" v-show="diamondsTemp > 0">
+				<div class="temp_diamants_inner"><iconDiamant/> {{ diamondsTemp }}</div>
+				<div class="anim_diamond">
+					<span :class="{drop: dropAnim}" :style="diamondAnimIteration"><iconDiamant/></span>
+				</div>
+			</div>
+
+			<PlayersList :players-list="players"/>
+		</div>
+	</div>
+</template>
+
+<script>
+	import ActionBtns from './games_comps/_actionBtns.vue'
+	import PlayersList from './games_comps/_playersList.vue'
+	import CardsBoard from './games_comps/_cardsBoard.vue'
+	import Timer from './games_comps/_timer.vue'
+
+	import iconCamp from '../assets/svg/camp.svg'
+	import iconDiamant from '../assets/svg/diamant.svg'
+
+	export default {
+		props: {
+			socket: Object,
+			players: Object,
+			gameId: Number
+		},
+		data() {
+			return {
+				caveCards: {},
+				gameRound: 1,
+				maxRound: 5,
+				diamondsLeft: 0,
+				diamondsTemp: 0,
+				popup_list: [],
+				dropAnim: false,
+				dropAnimCount: 0
+			}
+		},
+		computed: {
+			diamondAnimIteration(){
+				if(this.dropAnimCount > 0)
+					return 'animation-iteration-count:'+this.dropAnimCount+';'
+
+				return false
+			},
+		},
+		methods: {
+			actionBtnChild(y){
+				this.socket.emit('SUBMIT_CHOICE', this.gameId, y)
+				this.choose = false
+			},
+			timerAnim(ms){
+				return new Promise(res => setTimeout(res, ms))
+			},
+			async incrementDiamonds(total) {
+				let timerMs = 350
+				this.dropAnimCount = (total - this.diamondsTemp)
+				
+				if(total - this.diamondsTemp > 9) timerMs = 200
+				this.dropAnim = true
+
+				for (var i = this.diamondsTemp; i <= total; i++) {
+					this.diamondsTemp = i
+					await this.timerAnim(timerMs);
+				}
+
+				this.dropAnim = false
+				this.dropAnimCount = 0
+			},
+			deletePopup(index){
+				this.popup_list.splice(index, 1);
+			}
+		},
+		mounted(){
+			this.socket.on('UPDATE_DATAS', (data) => {
+				this.maxRound = data.maxRound
+				this.gameRound = data.round
+				this.caveCards = data.caveCards
+				this.diamondsLeft = data.leftDiamonds
+
+				if(data.tempDiamonds > this.diamondsTemp){
+					this.incrementDiamonds(data.tempDiamonds)
+				}
+
+				if(data.tempDiamonds < this.diamondsTemp)
+					this.diamondsTemp = data.tempDiamonds
+			})
+
+			this.socket.on('TIMER_START', (time) => {
+				this.$refs.timer.startTimer(time)
+			})
+
+			this.socket.on('NEW_ROUND', (round) => {
+				this.gameRound = round
+				this.diamondsLeft = 0
+				this.diamondsTemp = 0
+			})
+
+			this.socket.on('CAVE_CARDS', (cards) => {
+				this.caveCards = cards
+			})
+
+			this.socket.on('SECOND_DANGER', (cards) => {
+				this.caveCards = cards
+				this.diamondsLeft = 0
+				this.diamondsTemp = 0
+			})
+
+			this.socket.on('DIAMOND_LEFT', (diamonds) => {
+				this.diamondsLeft = diamonds
+			})
+
+			this.socket.on('MESSAGE_POPUP', (data) => {
+				this.popup_list.push(data.message)
+
+				setTimeout(() => {
+					if(this.popup_list.length) this.popup_list.shift()
+				}, 5500)
+			})
+		},
+		components: {
+			ActionBtns, PlayersList, CardsBoard, Timer,
+			iconCamp, iconDiamant
+		}
+	}
+</script>

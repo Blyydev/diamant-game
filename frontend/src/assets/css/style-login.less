@@ -1,0 +1,155 @@
+@import "init.less";
+
+#login_component{
+
+	.panel_login{
+		display: flex;
+		flex-direction: column;
+		padding-top: 50px;
+
+		button{
+			width: 100%;
+			margin-bottom: 10px;
+			padding: 3px 10px;
+			background: none;
+			.noto(1.75rem, @jungle_light, 700);
+			.transition(.35s);
+
+			&:hover{
+				color: @white;
+				padding-left: 25px;
+				text-shadow: 0 0 15px @orange;
+			}
+
+			&:disabled{
+				user-select: none;
+				pointer-events: none;
+				opacity: .5;
+			}
+		}
+	}
+
+	.form_login{
+		
+		/*
+		.join_room{
+			margin-bottom: 30px;
+
+			input{
+				max-width: 300px;
+				.nunito(2rem, @black);
+				font-weight: bold;
+				border-radius: 0;
+
+				&::placeholder{
+					.nunito(1.25rem, @black, 200);
+					padding-bottom: 10px;
+				}
+			}
+		}
+		*/
+
+		.create_game_btn{
+			letter-spacing: 1px;
+			width: 100%;
+		}
+
+		input{
+			background: transparent;
+			display: block;
+			height: 50px;
+			width: 100%;
+
+			margin: 0 auto 12px;
+			padding: 3px 5px;
+
+			border-radius: 0;
+			border: none;
+			border-bottom: 1px solid @jungle_light;
+
+			.nunito(1.35rem, @white, 400);
+			text-shadow: 0 0 3px @jungle_light;
+			opacity: 1;
+			text-align: center;
+
+			.transition();
+
+			&:focus{
+				outline: none;
+				border-color: @white;
+			}
+		}
+
+		input::placeholder{
+			color: @jungle_light;
+			text-shadow: none;
+			opacity: .65;
+		}
+
+		.error{
+			.nunito(1rem, @white, 400);
+			text-align: center;
+			
+			padding: 8px;
+			background-color: fade(@bad, 80%);
+			border-radius: 5px;
+			margin-bottom: 10px;
+			
+			.transition();
+		}
+
+		button{
+			margin-bottom: 10px;
+		}
+
+		.join_screen_btn{
+			margin-top: 30px;
+			background: @jungle_light;
+			// color: @white;
+		}
+
+		.back_login{
+			width: 100%;
+			margin-top: 20px;
+			padding: 3px 10px;
+			background: none;
+			.noto(1rem, @jungle_light);
+
+			&:before{
+				content: '←';
+				margin-right: 10px;
+				.transition();
+			}
+
+			&:hover{
+				color: @white;
+
+				&:before{
+					margin-right: 13px;
+				}
+			}
+		}
+
+	}
+
+}
+
+.loading_login{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 999;
+
+	user-select: none;
+	pointer-events: none;
+
+	h2{
+		.odachi(5rem, @good);
+		text-align: center;
+		margin: 0;
+		letter-spacing: 5px;
+		text-shadow: 0px 0px 12px fade(@jungle_light, 50%);
+	}
+}
+

@@ -1,0 +1,87 @@
+// styles default
+
+// VARIABLES & FONTS & FUNCTIONS
+// -------
+
+	@import (css) url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@200;400;800&family=Nunito:wght@200;400;700&display=swap');
+
+	@import (css) url('./font-odachi.css');
+
+	@black:#000;
+	@white:#fff;
+
+	@grey:#595863;
+		@grey_dark:#292630;
+		@grey_light:#B1AFB3;
+
+		// @grey_white:#8000ff;
+
+	@bg: #000C13;
+
+	/*
+	@purple:#814da6;
+		@purpledark:#653c82;
+		@purple_alt:#681ba6;
+	*/
+
+	// @green:#00ffbb;
+		// @greendark:#00ae80;
+
+	@red:#DC143C;
+
+	// ---
+
+	@good:#08f7bb;
+	@bad:#c70348;
+	@alert:#eba102;
+	
+	@bgAnimDuration: 1.5s;
+	// ----------
+
+	@yellow: #DDA82A;
+	@orange: #D98A23;
+
+	@jungle_black: #030404;
+	@jungle_dark: #22363F;
+	@jungle: #455D6A;
+	@jungle_light: #ABD3D1;
+
+	@blue_dark: #0C0B29;
+	@green: #0E2B1E;
+
+	.transition(@t: 0.5s, @p: all, @e: ease-out){
+		transition-duration: @t;
+		transition-property: @p;
+		transition-timing-function: @e;
+	}
+
+	// ODACHI - title
+	.odachi(@s:1rem, @c:@grey){
+		font-family: 'Odachi', sans-serif;
+		font-size: @s;
+		color:@c;
+		font-weight:normal;	
+	}
+
+	/*
+		NOTO
+		200 / 400 / 800
+	*/
+	.noto(@s:1rem, @c:@grey, @w:400){
+		font-family: 'Noto Serif Display', serif;
+		font-size: @s;
+		color:@c;
+		font-weight:@w;	
+	}
+
+	/*
+		NUNITO
+		200 / 400 / 700
+	*/
+	.nunito(@s:1rem, @c:@grey, @w:400){
+		font-family: 'Nunito', sans-serif;
+		font-size: @s;
+		color:@c;
+		font-weight:@w;	
+	}
+
