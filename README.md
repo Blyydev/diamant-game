@@ -4,9 +4,9 @@
 
 Adaptation du jeu pour des parties entre amis via navigateur.
 
-[Essayer le jeu](https://diamant.geoffroy-pizard.fr/)
+[> Essayer le jeu](https://diamant.geoffroy-pizard.fr/)
 
-[Plus d'info sur le jeu Diamant](https://iello.fr/jeux/diamant/) | [Règles du jeu](https://iello.fr/wp-content/uploads/2022/07/DIAMANT_regles.pdf)
+[Plus d'info sur le jeu Diamant](https://iello.fr/jeux/diamant/)  |  [Règles du jeu](https://iello.fr/wp-content/uploads/2022/07/DIAMANT_regles.pdf)
 
 ***
 
@@ -34,6 +34,6 @@ npm run diamant
 
 ## Credits
 
-Illustration et développement : Geoffroy Pizard
+Design, Illustration et développement front & back : Geoffroy Pizard
 
-> Made with Node.js / Express.js / Socket.io / Vue.js / Vite js / Less
+> Node.js / Express.js / Socket.io / Vue.js / Vite js / Less
