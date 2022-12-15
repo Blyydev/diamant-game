@@ -4,8 +4,6 @@
 
 Adaptation du jeu pour des parties entre amis via navigateur.
 
-[> Essayer le jeu](https://diamant.geoffroy-pizard.fr/)
-
 [Plus d'info sur le jeu Diamant](https://iello.fr/jeux/diamant/)  |  [Règles du jeu](https://iello.fr/wp-content/uploads/2022/07/DIAMANT_regles.pdf)
 
 ***
